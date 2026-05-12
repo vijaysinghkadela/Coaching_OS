@@ -21,6 +21,8 @@ const scoreSchema = z.array(z.object({
   remarks: z.string().optional(),
 }))
 
+type ScoreInput = z.infer<typeof scoreSchema>
+
 async function getInstituteId() {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
@@ -46,8 +48,11 @@ export async function createTest(values: z.infer<typeof testSchema>) {
   return { id: data.id }
 }
 
-export async function saveTestScores(testId: string, scores: z.infer<typeof scoreSchema>) {
+export async function saveTestScores(testId: string, scores: ScoreInput) {
   const { supabase, instituteId } = await getInstituteId()
+
+  const parsed = scoreSchema.safeParse(scores)
+  if (!parsed.success) return { error: parsed.error.issues[0].message }
 
   const { data: test } = await supabase
     .from('tests')
@@ -57,7 +62,7 @@ export async function saveTestScores(testId: string, scores: z.infer<typeof scor
 
   if (!test || test.institute_id !== instituteId) return { error: 'Test not found' }
 
-  const rows = scores.map((s) => ({
+  const rows = parsed.data.map((s) => ({
     test_id: testId,
     student_id: s.student_id,
     marks_obtained: s.is_absent ? 0 : s.marks_obtained,

@@ -1,51 +1,33 @@
-// Mock Supabase client for demo mode — no real network calls
+// Mock Supabase client for when Supabase is not configured
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import {
-  DEMO_USER,
-  DEMO_INSTITUTE,
-  DEMO_PROFILES,
-  DEMO_COURSES,
-  DEMO_ROOMS,
-  DEMO_BATCHES,
-  DEMO_STUDENTS,
-  DEMO_FEE_STRUCTURES,
-  DEMO_FEE_RECORDS,
-  DEMO_PAYMENT_TRANSACTIONS,
-  DEMO_ATTENDANCE_SESSIONS,
-  DEMO_ATTENDANCE_RECORDS,
-  DEMO_TESTS,
-  DEMO_TEST_SCORES,
-  DEMO_STAFF,
-  DEMO_WHATSAPP_MESSAGES,
-  DEMO_SUBSCRIPTION,
-  DEMO_MONTHLY_REVENUE,
-  getDemoAttendanceTrend,
-} from './data'
+import { createDemoClient } from '@/lib/demo/client'
 
-const TABLE_MAP: Record<string, unknown[]> = {
-  institutes: [DEMO_INSTITUTE],
-  profiles: DEMO_PROFILES,
-  courses: DEMO_COURSES,
-  rooms: DEMO_ROOMS,
-  batches: DEMO_BATCHES,
-  students: DEMO_STUDENTS,
-  fee_structures: DEMO_FEE_STRUCTURES,
-  fee_records: DEMO_FEE_RECORDS,
-  payment_transactions: DEMO_PAYMENT_TRANSACTIONS,
-  attendance_sessions: DEMO_ATTENDANCE_SESSIONS,
-  attendance_records: DEMO_ATTENDANCE_RECORDS,
-  tests: DEMO_TESTS,
-  test_scores: DEMO_TEST_SCORES,
-  staff: DEMO_STAFF,
-  whatsapp_messages: DEMO_WHATSAPP_MESSAGES,
-  saas_subscriptions: [DEMO_SUBSCRIPTION],
+// We'll use the demo client but with empty tables for non-demo mode
+// This is a simplified mock that returns empty data for all queries
+const EMPTY_TABLE_MAP: Record<string, unknown[]> = {
+  institutes: [],
+  profiles: [],
+  courses: [],
+  rooms: [],
+  batches: [],
+  students: [],
+  fee_structures: [],
+  fee_records: [],
+  payment_transactions: [],
+  attendance_sessions: [],
+  attendance_records: [],
+  tests: [],
+  test_scores: [],
+  staff: [],
+  whatsapp_messages: [],
+  saas_subscriptions: [],
   ai_usage: [],
 }
 
 type Result<T> = { data: T; error: null; count?: number }
 type ErrResult = { data: null; error: { message: string } }
 
-class QueryBuilder<T = Record<string, unknown>> {
+class MockQueryBuilder<T = Record<string, unknown>> {
   private _data: T[]
   private _single = false
   private _limit?: number
@@ -56,7 +38,6 @@ class QueryBuilder<T = Record<string, unknown>> {
     this._data = data
   }
 
-  // Filter methods — most just return `this` for chaining
   eq(col: string, val: unknown) {
     this._filters.push((row) => (row as Record<string, unknown>)[col] === val)
     return this
@@ -116,7 +97,6 @@ class QueryBuilder<T = Record<string, unknown>> {
     return rows
   }
 
-  // Make it thenable so `await supabase.from(...).select(...)` works
   then<TResult>(
     onfulfilled: (value: Result<T | T[] | null>) => TResult
   ): Promise<TResult> {
@@ -132,62 +112,38 @@ class QueryBuilder<T = Record<string, unknown>> {
 }
 
 function makeFrom(table: string) {
-  const rows = (TABLE_MAP[table] ?? []) as Record<string, unknown>[]
-  return new QueryBuilder(rows)
+  const rows = (EMPTY_TABLE_MAP[table] ?? []) as Record<string, unknown>[]
+  return new MockQueryBuilder(rows)
 }
 
 function makeRpc(fn: string, _args?: Record<string, unknown>) {
-  // Return demo analytics for known RPC functions
-  if (fn === 'get_today_attendance_pct') {
-    return Promise.resolve({ data: 84.7, error: null })
-  }
-  if (fn === 'get_at_risk_students') {
-    return Promise.resolve({
-      data: [
-        { student_id: 'stu-004', full_name: 'Sneha Gupta', enrollment_no: 'SHRM-0004', batch_name: 'JEE 2026 Morning', att_pct: 42, avg_score_pct: 40 },
-        { student_id: 'stu-009', full_name: 'Rahul Verma', enrollment_no: 'SHRM-0009', batch_name: 'NEET 2026 Batch A', att_pct: 55, avg_score_pct: 38 },
-      ],
-      error: null,
-    })
-  }
-  if (fn === 'get_revenue_by_month') {
-    return Promise.resolve({ data: DEMO_MONTHLY_REVENUE, error: null })
-  }
-  if (fn === 'get_attendance_trend') {
-    return Promise.resolve({ data: getDemoAttendanceTrend(), error: null })
-  }
-  if (fn === 'trigger_absence_alerts') {
-    return Promise.resolve({ data: null, error: null })
-  }
-  if (fn === 'recompute_test_ranks') {
-    return Promise.resolve({ data: null, error: null })
-  }
+  // Return empty data for all RPC functions
   return Promise.resolve({ data: null, error: null })
 }
 
-const demoAuth = {
-  getUser: () => Promise.resolve({ data: { user: DEMO_USER }, error: null }),
-  getSession: () => Promise.resolve({ data: { session: { user: DEMO_USER, access_token: 'demo_token' } }, error: null }),
-  signInWithPassword: (_c: unknown) => Promise.resolve({ data: { user: DEMO_USER }, error: null }),
-  signUp: (_c: unknown) => Promise.resolve({ data: { user: DEMO_USER }, error: null }),
+const mockAuth = {
+  getUser: () => Promise.resolve({ data: { user: null }, error: null }),
+  getSession: () => Promise.resolve({ data: { session: null }, error: null }),
+  signInWithPassword: (_c: unknown) => Promise.resolve({ data: { user: null }, error: null }),
+  signUp: (_c: unknown) => Promise.resolve({ data: { user: null }, error: null }),
   signOut: () => Promise.resolve({ error: null }),
   onAuthStateChange: (_cb: unknown) => ({ data: { subscription: { unsubscribe: () => {} } } }),
 }
 
-const demoStorage = {
+const mockStorage = {
   from: (_bucket: string) => ({
-    upload: (_path: string, _file: unknown) => Promise.resolve({ data: { path: 'demo/file.jpg' }, error: null }),
-    getPublicUrl: (_path: string) => ({ data: { publicUrl: 'https://placehold.co/400x400?text=Demo' } }),
+    upload: (_path: string, _file: unknown) => Promise.resolve({ data: { path: '' }, error: null }),
+    getPublicUrl: (_path: string) => ({ data: { publicUrl: '' } }),
     remove: (_paths: string[]) => Promise.resolve({ data: [], error: null }),
   }),
 }
 
-export function createDemoClient() {
+export function createMockClient() {
   return {
     from: (table: string) => makeFrom(table),
     rpc: (fn: string, args?: Record<string, unknown>) => makeRpc(fn, args),
-    auth: demoAuth,
-    storage: demoStorage,
+    auth: mockAuth,
+    storage: mockStorage,
     channel: (_name: string) => ({
       on: (_event: string, _filter: unknown, _cb: unknown) => ({ subscribe: () => {} }),
       subscribe: () => {},

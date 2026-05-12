@@ -8,7 +8,6 @@ import { PaymentDialog } from '@/components/fees/PaymentDialog'
 import { Button } from '@/components/ui/button'
 import { formatCurrency, formatDate } from '@/lib/utils'
 import { StatusBadge } from '@/components/shared/StatusBadge'
-import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 
 interface FeeRecord {

@@ -13,7 +13,7 @@ import {
 import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
 import {
-    FileText, Image, CheckCircle2, Clock, Download,
+    FileText, Image as ImageIcon, CheckCircle2, Clock, Download,
     Eye, Upload, Search, ShieldAlert,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
@@ -27,7 +27,7 @@ interface Document {
 interface Category { value: string; label: string; color: string }
 
 const fileIcon = (name: string) =>
-   name.endsWith('.pdf') ? <FileText size={15} className="text-red-500" /> : /* eslint-disable-next-line jsx-a11y/alt-text */ <Image size={15} className="text-blue-500" />
+   name.endsWith('.pdf') ? <FileText size={15} className="text-red-500" /> : <ImageIcon size={15} className="text-blue-500" />
 
 export function DocumentsClient({ documents, categories }: { documents: Document[]; categories: Category[] }) {
   const [search, setSearch]           = useState<string>('')

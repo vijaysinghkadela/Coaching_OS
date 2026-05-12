@@ -1,11 +1,17 @@
 import { createServerClient } from '@supabase/ssr'
 import { cookies } from 'next/headers'
 import { createDemoClient } from '@/lib/demo/client'
+import { createMockClient } from '@/lib/mockSupabase'
 
 export async function createClient() {
   if (process.env.NEXT_PUBLIC_DEMO_MODE === 'true') {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return createDemoClient() as any
+  }
+
+  // If Supabase credentials are not provided, use mock client
+  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+    return createMockClient()
   }
 
   const cookieStore = await cookies()

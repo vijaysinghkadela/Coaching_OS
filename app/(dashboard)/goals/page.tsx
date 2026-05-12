@@ -1,11 +1,8 @@
 import { PageHeader } from '@/components/shared/PageHeader'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Progress } from '@/components/ui/progress'
 import { Target, Plus, CheckCircle2, Clock, TrendingUp, Star } from 'lucide-react'
-import Link from 'next/link'
-import { DEMO_STUDENTS } from '@/lib/demo/data'
 
 const DEMO_GOALS = [
   { id: 'goal-001', student_id: 'stu-001', student: 'Arjun Mehta', title: 'Score 150+ in JEE Mains Physics', category: 'academic', target: 150, current: 127, unit: 'marks', due_date: '2026-01-15', status: 'in_progress', priority: 'high' },
@@ -92,7 +89,6 @@ export default async function GoalsPage() {
         </CardHeader>
         <CardContent className="space-y-3">
           {HABITS.map(h => {
-            const pct = Math.min(100, Math.round((h.streak / h.target) * 100))
             return (
               <div key={h.id} className="flex items-center gap-3">
                 <div className="flex-1">

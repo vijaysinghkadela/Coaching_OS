@@ -49,7 +49,7 @@ export default async function DashboardPage() {
           <KpiCard title="Total Students" value={DEMO_STUDENTS.length} icon={Users} />
           <KpiCard title="Active Batches" value={DEMO_BATCHES.filter(b => b.status === 'active').length} icon={BookOpen} />
           <KpiCard title="Today&apos;s Attendance" value="84.7%" icon={ClipboardCheck} delta={9.7} deltaLabel="vs target" />
-          <KpiCard title="Fees This Month" value={formatCurrency(97000)} icon={IndianRupee} />
+          <KpiCard title="Fees This Month" value={formatCurrency(monthTotal)} icon={IndianRupee} />
         </div>
 
         <QuickActions />
@@ -130,7 +130,6 @@ export default async function DashboardPage() {
   ])
 
    const todayPct = (attendanceToday?.data as number | null) ?? 0
-   // eslint-disable-next-line @typescript-eslint/no-unused-vars
    const monthTotal = ((feesThisMonth as { data: { amount: number }[] | null }).data ?? []).reduce((sum, t) => sum + (t.amount ?? 0), 0)
 
   const attendanceMap = new Map<string, { present: number; total: number }>()

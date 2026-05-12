@@ -1,11 +1,10 @@
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 import { PageHeader } from '@/components/shared/PageHeader'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
+import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { formatCurrency } from '@/lib/utils'
-import { Plus, IndianRupee } from 'lucide-react'
+import { IndianRupee } from 'lucide-react'
 import { AddFeeStructureForm } from './AddFeeStructureForm'
 
 export default async function FeeStructuresPage() {

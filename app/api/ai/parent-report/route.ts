@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import Anthropic from '@anthropic-ai/sdk'
-import { DEMO_STUDENTS, DEMO_INSTITUTE } from '@/lib/demo/data'
+import { DEMO_STUDENTS } from '@/lib/demo/data'
 
 const IS_DEMO = process.env.NEXT_PUBLIC_DEMO_MODE === 'true'
 

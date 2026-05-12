@@ -2,7 +2,7 @@ import { PageHeader } from '@/components/shared/PageHeader'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import { BookOpen, Plus, Download, FileText, Video, Link2, Image, Search } from 'lucide-react'
+import { BookOpen, Plus, Download, FileText, Video, Link2, Image as ImageIcon, Search } from 'lucide-react'
 import { Input } from '@/components/ui/input'
 
 const CONTENT_ITEMS = [
@@ -25,7 +25,7 @@ const MODULES = [
 const typeIcon: Record<string, React.ReactNode> = {
    pdf: <FileText size={14} className="text-red-500" />,
    video: <Video size={14} className="text-blue-500" />,
-   image: <Image size={14} className="text-green-500" />,
+   image: <ImageIcon size={14} className="text-green-500" />,
    link: <Link2 size={14} className="text-purple-500" />,
  }
 

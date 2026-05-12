@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { useRouter } from 'next/navigation'
 import { PageHeader } from '@/components/shared/PageHeader'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -26,7 +25,7 @@ export default function SettingsPage() {
       if (data) setForm({ name: data.name ?? '', city: data.city ?? '', gstin: data.gstin ?? '', phone: data.phone ?? '', website: data.website ?? '' })
     }
     load()
-  }, [])
+  }, [supabase])
 
   const handleSave = async () => {
     setLoading(true)

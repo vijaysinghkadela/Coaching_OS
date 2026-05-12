@@ -37,6 +37,7 @@ export function EnrollmentForm({ batches, courses }: EnrollmentFormProps) {
   })
 
   const { register, handleSubmit, formState: { errors }, setValue, watch, trigger } = form
+  // eslint-disable-next-line react-hooks/incompatible-library
   const values = watch()
 
   const nextStep = async () => {

@@ -1,8 +1,7 @@
 import { PageHeader } from '@/components/shared/PageHeader'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import { Star, TrendingUp, MessageSquare, ThumbsUp, ThumbsDown, BarChart3 } from 'lucide-react'
+import { Star, MessageSquare, ThumbsUp, ThumbsDown, BarChart3 } from 'lucide-react'
 import { FeedbackClient } from './FeedbackClient'
 
 const DEMO_FEEDBACK = [
