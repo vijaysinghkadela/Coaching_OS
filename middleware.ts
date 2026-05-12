@@ -1,24 +1,19 @@
 import { NextResponse, type NextRequest } from 'next/server'
 
-const PUBLIC_PATHS = ['/login', '/signup', '/auth/callback']
+const AUTH_PATHS = ['/login', '/signup', '/auth/callback']
 
 export async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname
 
-  // Demo mode — bypass all auth, redirect root/auth pages straight to dashboard
-  if (process.env.NEXT_PUBLIC_DEMO_MODE === 'true') {
-    const isAuthPage = PUBLIC_PATHS.some(p => pathname.startsWith(p))
-    const isRoot = pathname === '/'
-    if (isRoot || isAuthPage) {
-      const url = request.nextUrl.clone()
-      url.pathname = '/dashboard'
-      return NextResponse.redirect(url)
-    }
-    return NextResponse.next({ request })
+  // Always redirect root and auth pages straight to dashboard
+  const isAuthPage = AUTH_PATHS.some(p => pathname.startsWith(p))
+  const isRoot = pathname === '/'
+  if (isRoot || isAuthPage) {
+    const url = request.nextUrl.clone()
+    url.pathname = '/dashboard'
+    return NextResponse.redirect(url)
   }
 
-  // If not in demo mode, we do not have Supabase configured, so we allow all requests to pass through.
-  // In a real application, you would implement authentication here.
   return NextResponse.next({ request })
 }
 
