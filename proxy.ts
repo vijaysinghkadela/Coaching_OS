@@ -1,11 +1,11 @@
 import { NextResponse, type NextRequest } from 'next/server'
 
-const AUTH_PATHS = ['/login', '/signup', '/auth/callback']
+const AUTH_PATHS = ['/login', '/signup', '/auth/callback', '/onboarding']
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const pathname = request.nextUrl.pathname
 
-  // Always redirect root and auth pages straight to dashboard
+  // Always redirect root and auth/onboarding pages straight to dashboard
   const isAuthPage = AUTH_PATHS.some(p => pathname.startsWith(p))
   const isRoot = pathname === '/'
   if (isRoot || isAuthPage) {
