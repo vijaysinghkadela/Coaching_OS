@@ -1,5 +1,5 @@
 // Mock Supabase client for demo mode — no real network calls
-/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable no-unused-vars */
 import {
   DEMO_USER,
   DEMO_INSTITUTE,

@@ -1,5 +1,5 @@
 // Mock Supabase client for when Supabase is not configured
-/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable no-unused-vars */
 import { createDemoClient } from '@/lib/demo/client'
 
 // We'll use the demo client but with empty tables for non-demo mode

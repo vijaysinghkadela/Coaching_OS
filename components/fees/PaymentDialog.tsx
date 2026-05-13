@@ -17,11 +17,11 @@ type PaymentMethod = 'cash' | 'upi' | 'bank_transfer' | 'cheque'
 
 interface PaymentDialogProps {
   open: boolean
-  onOpenChange: (open: boolean) => void
+  onOpenChange: (_open: boolean) => void
   feeRecordId: string
   pendingAmount: number
   studentName: string
-  onSuccess?: (receiptNumber: string) => void
+  onSuccess?: (_receiptNumber: string) => void
 }
 
 export function PaymentDialog({ open, onOpenChange, feeRecordId, pendingAmount, studentName, onSuccess }: PaymentDialogProps) {

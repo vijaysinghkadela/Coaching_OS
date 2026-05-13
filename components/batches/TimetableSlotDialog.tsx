@@ -16,7 +16,7 @@ const DAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 
 
 interface TimetableSlotDialogProps {
   open: boolean
-  onOpenChange: (open: boolean) => void
+  onOpenChange: (_open: boolean) => void
   batchId: string
   defaultDay: number
   teachers: { id: string; full_name: string }[]
