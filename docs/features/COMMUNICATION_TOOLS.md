@@ -85,9 +85,9 @@ This document outlines the communication features required for the coaching app 
 - CommunityList and CommunityView components
 
 ### Third-Party Services
-- WebRTC implementation (using Twilio Video, Agora, or simplepeer)
-- File storage (Supabase Storage or AWS S3 for attachments)
-- Push notification service (Firebase Cloud Messaging or similar)
+- WebRTC implementation if calls are added later
+- File storage for attachments if the app is productionized later
+- Push notification service (future)
 - Email fallback for notifications
 
 ### Security and Privacy
@@ -100,11 +100,10 @@ This document outlines the communication features required for the coaching app 
 ## Implementation Priority (MVP)
 1. Basic text chat between coach and client
 2. Simple session notes feature
-3. Real-time messaging using Supabase Repositories or WebSocket fallback
+3. Real-time messaging using a local demo feed or WebSocket fallback
 4. Push notifications for new messages
 5. Basic UI for viewing chat history
 
 ## Dependencies
-- @supabase/supabase-js (for real-time capabilities)
 - A WebRTC library for video calls (future phase)
 - A notification service (expo-push-token, firebase/messaging, etc.)

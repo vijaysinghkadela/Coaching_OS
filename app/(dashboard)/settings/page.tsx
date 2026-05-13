@@ -7,34 +7,26 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { toast } from 'sonner'
-import { createBrowserClient } from '@supabase/ssr'
+import { DEMO_INSTITUTE } from '@/lib/demo/data'
 
 export default function SettingsPage() {
-  const supabase = createBrowserClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-  )
   const [loading, setLoading] = useState(false)
-  const [form, setForm] = useState({ name: '', city: '', gstin: '', phone: '', website: '' })
+  const [form, setForm] = useState({
+    name: DEMO_INSTITUTE.name,
+    city: DEMO_INSTITUTE.city,
+    gstin: DEMO_INSTITUTE.gstin,
+    phone: '9414100003',
+    website: 'https://sharmaclasses.in',
+  })
 
   useEffect(() => {
-    const load = async () => {
-      const { data: { user } } = await supabase.auth.getUser()
-      if (!user) return
-      const { data } = await supabase.from('institutes').select('*').eq('owner_id', user.id).single()
-      if (data) setForm({ name: data.name ?? '', city: data.city ?? '', gstin: data.gstin ?? '', phone: data.phone ?? '', website: data.website ?? '' })
-    }
-    load()
-  }, [supabase])
+    // Showcase mode keeps local demo values only.
+  }, [])
 
   const handleSave = async () => {
     setLoading(true)
-    const { data: { user } } = await supabase.auth.getUser()
-    if (!user) return
-    const { error } = await supabase.from('institutes').update(form).eq('owner_id', user.id)
     setLoading(false)
-    if (error) toast.error(error.message)
-    else toast.success('Settings saved!')
+    toast.success('Settings updated in demo mode')
   }
 
   return (

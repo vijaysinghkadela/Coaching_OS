@@ -12,7 +12,7 @@ This doc records the end-to-end steps to implement the **core document upload fe
 
 ---
 
-## MVP Data Model (Supabase)
+## Showcase Data Model
 ### 1) Metadata table
 Create/confirm a table like:
 - `student_documents` (recommended naming)
@@ -23,7 +23,7 @@ Expected columns:
 - `student_id` (uuid)
 - `coach_id` or derived via coach assignment (optional depending on existing schema)
 - `category` (enum/text)
-- `file_path` (text) — path inside Supabase Storage
+- `file_path` (text) — virtual path in demo data
 - `file_name` (text)
 - `file_size` (int or text)
 - `status` (enum/text) => `verified` | `pending`
@@ -34,7 +34,7 @@ Expected columns:
 - `last_opened_at` (timestamptz nullable)
 
 ### 2) Storage bucket
-Create/confirm a Supabase Storage bucket like:
+Use a placeholder bucket name like:
 - `student-documents` (recommended)
 
 Recommended object key strategy:
@@ -56,7 +56,7 @@ Use bucket policies to restrict file access to the same set of users.
 
 ---
 
-## Upload Flow (UI → Storage → DB)
+## Upload Flow (UI → mock data)
 ### Step 1: Upload dialog
 - Inputs:
   - select student
@@ -65,10 +65,10 @@ Use bucket policies to restrict file access to the same set of users.
   - optional note
 - Show consent popup when category is sensitive (Aadhaar, birth certificate, etc.)
 
-### Step 2: Upload file to Supabase Storage
+### Step 2: Upload file metadata to demo data
 - Validate file type/size client-side.
 - Generate storage path using tenant/student/document IDs.
-- Upload via Supabase Storage SDK.
+- Add the file to the local mock document list.
 
 ### Step 3: Insert metadata row
 - After storage upload succeeds:

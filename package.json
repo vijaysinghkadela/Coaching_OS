@@ -8,18 +8,22 @@
     "start": "next start",
     "lint": "eslint"
   },
+  "overrides": {
+    "lightningcss": "1.19.0"
+  },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.95.1",
     "@base-ui/react": "^1.4.1",
     "@hookform/resolvers": "^5.2.2",
     "@react-pdf/renderer": "^4.5.1",
-    "@supabase/ssr": "^0.10.3",
-    "@supabase/supabase-js": "^2.105.4",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
+    "is-extglob": "^2.1.1",
+    "json-schema-traverse": "^1.0.0",
+    "lodash.merge": "^4.6.2",
     "lucide-react": "^1.14.0",
-    "next": "16.2.6",
+    "next": "^16.2.6",
     "next-themes": "^0.4.6",
     "qrcode.react": "^4.2.0",
     "razorpay": "^2.9.6",
@@ -35,13 +39,15 @@
     "zod": "^4.4.3"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "autoprefixer": "^10.4.16",
     "eslint": "^9",
     "eslint-config-next": "16.2.6",
-    "tailwindcss": "^4",
+    "postcss": "^8.4.31",
+    "tailwindcss": "^3.4.0",
+    "tailwindcss-animate": "^1.0.7",
     "typescript": "^5"
   }
 }
