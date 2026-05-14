@@ -1,0 +1,28 @@
+
+> coaching-os@0.1.0 dev
+> next dev
+
+▲ Next.js 16.2.6 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.1.16:3000
+- Environments: .env.local
+✓ Ready in 348ms
+
+ GET /dashboard 200 in 369ms (next.js: 81ms, proxy.ts: 4ms, application-code: 285ms)
+ GET /dashboard 200 in 50ms (next.js: 4ms, proxy.ts: 5ms, application-code: 41ms)
+ GET /students 200 in 682ms (next.js: 617ms, proxy.ts: 3ms, application-code: 62ms)
+ GET /fees 200 in 465ms (next.js: 414ms, proxy.ts: 4ms, application-code: 47ms)
+ GET /attendance 200 in 497ms (next.js: 423ms, proxy.ts: 4ms, application-code: 70ms)
+ GET /batches 200 in 473ms (next.js: 417ms, proxy.ts: 4ms, application-code: 51ms)
+ GET /staff 200 in 476ms (next.js: 415ms, proxy.ts: 5ms, application-code: 55ms)
+ GET /tests 200 in 629ms (next.js: 531ms, proxy.ts: 5ms, application-code: 92ms)
+ GET /analytics 200 in 2.9s (next.js: 2.6s, proxy.ts: 7ms, application-code: 321ms)
+ GET /communication 200 in 1548ms (next.js: 1339ms, proxy.ts: 9ms, application-code: 200ms)
+ GET /settings 200 in 1088ms (next.js: 930ms, proxy.ts: 5ms, application-code: 152ms)
+ GET /students/stu-001 200 in 965ms (next.js: 874ms, proxy.ts: 4ms, application-code: 87ms)
+ GET /batches/batch-001 200 in 1562ms (next.js: 1419ms, proxy.ts: 7ms, application-code: 136ms)
+ GET /api/attendance/qr-verify 400 in 521ms (next.js: 481ms, proxy.ts: 9ms, application-code: 31ms)
+ GET /api/ai/study-plan 405 in 793ms (next.js: 773ms, proxy.ts: 7ms, application-code: 13ms)
+ GET /api/auth/callback?code=test 307 in 226ms (next.js: 204ms, proxy.ts: 10ms, application-code: 12ms)
+ GET /dashboard 200 in 164ms (next.js: 8ms, proxy.ts: 11ms, application-code: 145ms)
+[?25h

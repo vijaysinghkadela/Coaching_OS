@@ -70,11 +70,9 @@ module.exports = {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
-        mta: {
-          primary: "hsl(var(--mta-primary))",
-          "primary-dark": "hsl(var(--mta-primary-dark))",
-          "primary-light": "hsl(var(--mta-primary-light))",
-          accent: "hsl(var(--mta-accent))",
+        cta: {
+          DEFAULT: "hsl(var(--cta))",
+          foreground: "hsl(var(--cta-foreground))",
         },
       },
       borderRadius: {
@@ -83,8 +81,8 @@ module.exports = {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        sans: fontFamily.sans,
-        mono: fontFamily.mono,
+        sans: ["var(--font-sans)", ...fontFamily.sans],
+        mono: ["var(--font-mono)", ...fontFamily.mono],
       },
       keyframes: {
         "accordion-down": {

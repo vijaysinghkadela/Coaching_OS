@@ -26,7 +26,13 @@ We encourage parents to maintain open communication with the student about their
 }
 
 export async function POST(request: Request) {
-  const { studentId } = await request.json()
+  let studentId: string
+  try {
+    const body = await request.json()
+    studentId = body.studentId
+  } catch {
+    return NextResponse.json({ error: 'Invalid request body' }, { status: 400 })
+  }
 
   // Demo mode — return pre-written realistic report
   if (IS_DEMO) {
@@ -95,12 +101,17 @@ Write 2-3 paragraphs that:
 
 Write in a professional but warm tone. Do not use generic AI phrases. Be specific to the data provided.`
 
-  const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
-  const response = await anthropic.messages.create({
-    model: 'claude-sonnet-4-6',
-    max_tokens: 600,
-    messages: [{ role: 'user', content: prompt }],
-  })
+  let response
+  try {
+    const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
+    response = await anthropic.messages.create({
+      model: 'claude-sonnet-4-6',
+      max_tokens: 600,
+      messages: [{ role: 'user', content: prompt }],
+    })
+  } catch {
+    return NextResponse.json({ error: 'AI generation failed' }, { status: 500 })
+  }
 
   const report = (response.content[0] as { type: string; text: string }).text
 
@@ -111,7 +122,7 @@ Write in a professional but warm tone. Do not use generic AI phrases. Be specifi
     input_tokens: response.usage.input_tokens,
     output_tokens: response.usage.output_tokens,
     cost_usd: (response.usage.input_tokens * 0.000003) + (response.usage.output_tokens * 0.000015),
-  })
+  }).catch(() => {})
 
   return NextResponse.json({ report })
 }

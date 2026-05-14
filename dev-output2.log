@@ -1,0 +1,18 @@
+
+> coaching-os@0.1.0 dev
+> next dev
+
+▲ Next.js 16.2.6 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.1.16:3000
+- Environments: .env.local
+✓ Ready in 332ms
+
+ GET /dashboard 200 in 407ms (next.js: 62ms, proxy.ts: 105ms, application-code: 240ms)
+ GET /students 200 in 74ms (next.js: 22ms, proxy.ts: 3ms, application-code: 48ms)
+ POST /api/ai/parent-report 200 in 2.0s (next.js: 203ms, proxy.ts: 11ms, application-code: 1829ms)
+ POST /api/ai/parent-report 400 in 9ms (next.js: 2ms, proxy.ts: 3ms, application-code: 3ms)
+ POST /api/communication/send 400 in 86ms (next.js: 76ms, proxy.ts: 3ms, application-code: 7ms)
+ POST /api/ai/study-plan 200 in 2.2s (next.js: 28ms, proxy.ts: 3ms, application-code: 2.2s)
+ POST /api/ai/study-plan 400 in 11ms (next.js: 3ms, proxy.ts: 4ms, application-code: 4ms)
+[?25h

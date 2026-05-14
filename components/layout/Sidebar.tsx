@@ -72,14 +72,14 @@ export function Sidebar({ instituteName, tier }: SidebarProps) {
       )}
     >
       {/* Logo + Institute name */}
-      <div className="flex items-center gap-3 px-4 py-5 border-b">
+      <div className="flex items-center gap-3 px-4 py-5 border-b border-sidebar-border">
         <div className="w-8 h-8 shrink-0 rounded-lg bg-primary flex items-center justify-center">
           <GraduationCap size={16} className="text-primary-foreground" />
         </div>
         {!collapsed && (
           <div className="overflow-hidden">
             <p className="text-xs font-semibold text-sidebar-foreground truncate">{instituteName}</p>
-            <p className="text-[10px] text-muted-foreground">Coaching OS</p>
+            <p className="text-[10px] text-sidebar-foreground/50">Coaching OS</p>
           </div>
         )}
       </div>
@@ -89,7 +89,7 @@ export function Sidebar({ instituteName, tier }: SidebarProps) {
         {NAV_GROUPS.map((group) => (
           <div key={group.label}>
             {!collapsed && (
-              <p className="px-3 mb-1 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+              <p className="px-3 mb-1 text-[10px] font-semibold uppercase tracking-wider text-sidebar-foreground/50">
                 {group.label}
               </p>
             )}
@@ -111,12 +111,12 @@ export function Sidebar({ instituteName, tier }: SidebarProps) {
       </nav>
 
       {/* Tier badge + Settings */}
-      <div className="px-2 pb-4 space-y-1 border-t pt-3">
+      <div className="px-2 pb-4 space-y-1 border-t border-sidebar-border pt-3">
         {!collapsed && (
           <div className="px-3 py-2">
             <Badge
               variant="outline"
-              className="text-xs border-primary text-primary"
+              className="text-xs border-primary/30 text-primary"
             >
               {TIER_LIMITS[tier].label} Plan
             </Badge>
@@ -130,8 +130,8 @@ export function Sidebar({ instituteName, tier }: SidebarProps) {
         onClick={() => setCollapsed(!collapsed)}
         className={cn(
           'absolute -right-3 top-20 z-10',
-          'w-6 h-6 rounded-full border bg-background shadow-sm',
-          'flex items-center justify-center hover:bg-accent transition-colors'
+          'w-6 h-6 rounded-full border bg-background',
+          'flex items-center justify-center hover:bg-accent transition-colors cursor-pointer'
         )}
       >
         {collapsed ? <ChevronRight size={12} /> : <ChevronLeft size={12} />}

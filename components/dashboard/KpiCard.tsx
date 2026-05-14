@@ -30,7 +30,7 @@ export function KpiCard({ title, value, delta, deltaLabel, icon: Icon, loading, 
   const positive = (delta ?? 0) >= 0
 
   return (
-    <Card className={cn('hover:shadow-md transition-shadow', className)}>
+    <Card className={cn('hover:bg-accent/30 transition-all duration-150 cursor-pointer', className)}>
       <CardHeader className="pb-2 flex flex-row items-center justify-between space-y-0">
         <CardTitle className="text-sm font-medium text-muted-foreground">{title}</CardTitle>
         <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">

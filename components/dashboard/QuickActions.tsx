@@ -14,9 +14,9 @@ export function QuickActions() {
     <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
       {ACTIONS.map((action) => (
         <Link key={action.href} href={action.href}>
-          <Card className="hover:shadow-md transition-shadow cursor-pointer h-full">
+          <Card className="hover:bg-accent/30 transition-all duration-150 cursor-pointer h-full group">
             <CardContent className="flex flex-col items-center justify-center gap-2 py-5 px-3 text-center">
-              <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${action.color}`}>
+              <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${action.color} group-hover:scale-110 transition-transform duration-150`}>
                 <action.icon size={18} />
               </div>
               <span className="text-xs font-medium text-foreground leading-tight">{action.label}</span>

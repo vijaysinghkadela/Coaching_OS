@@ -9,7 +9,17 @@ export async function POST(request: Request) {
   const { data: institute } = await supabase.from('institutes').select('id').eq('owner_id', user.id).single()
   if (!institute) return NextResponse.json({ error: 'Institute not found' }, { status: 404 })
 
-  const { batchId, audience, message } = await request.json()
+  let batchId: string | undefined
+  let audience: string
+  let message: string
+  try {
+    const body = await request.json()
+    batchId = body.batchId
+    audience = body.audience
+    message = body.message
+  } catch {
+    return NextResponse.json({ error: 'Invalid request body' }, { status: 400 })
+  }
 
   // Fetch phone numbers based on audience
   let query = supabase.from('students').select('id, phone, parent_phone').eq('institute_id', institute.id).eq('status', 'active')
@@ -37,7 +47,7 @@ export async function POST(request: Request) {
   await supabase.from('whatsapp_messages').insert(msgRows)
 
   // Call WhatsApp API (non-blocking — actual sending done via Edge Function or background job)
-  if (process.env.WHATSAPP_ACCESS_TOKEN && process.env.WHATSAPP_PHONE_NUMBER_ID) {
+  if (process.env.WHATSAPP_ACCESS_TOKEN && process.env.WHATSAPP_PHONE_NUMBER_ID && process.env.WHATSAPP_API_URL) {
     for (const phone of phones.slice(0, 5)) {
       fetch(`${process.env.WHATSAPP_API_URL}/v17.0/${process.env.WHATSAPP_PHONE_NUMBER_ID}/messages`, {
         method: 'POST',
